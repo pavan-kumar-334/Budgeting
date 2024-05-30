@@ -1,0 +1,128 @@
+<div id="customer-container" class="page-wrapper">
+  <br>
+  <div class="page-title-wrapper M12"><span class="page-title">Groups</span>&nbsp;<span class="list-count"
+      *ngIf="GaData">({{ GaData}})</span>
+    <button mat-raised-button color="primary" style="float: right;" routerLink="/group/add" class="submit-button ml500">
+      Add Group
+    </button>
+  </div>
+
+  <div class="page-header-section">
+    <div class="spacer">
+      <input class=" M123"
+         type="text" 
+         id='searchid' 
+         (keyup.enter)="searchByApi($event)" 
+         placeholder="Group Name" 
+         [(ngModel)]="value" >
+
+      <button style="margin-left: -52px;" mat-button matPrefix mat-icon-button (click)="searchByApi($event)"
+        class="fa fa-search">
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <button style="margin-left: -92px;" *ngIf="value" mat-button matPrefix mat-icon-button (click)="clearByclick()">
+        <mat-icon>clear</mat-icon>
+      </button>
+
+
+    </div>
+
+
+
+    <!-- <div>
+    <form [formGroup]="superForms" style="height: 63px;">
+
+      <mat-form-field appearance="outline">
+        <input class=" M123"
+        style="border-radius: 8px;     box-shadow: 0 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 rgb(63 63 68 / 15%); border:none; "
+        type="text" id='searchid' (keyup.enter)="searchByApi($event)" placeholder="Group Name">
+
+        <button  style="margin-left: -52px;" mat-button matPrefix mat-icon-button (click)="searchByApi    ($event)" class="fa fa-search">
+          <mat-icon style="margin-left: -52px;" mat-button matPrefix mat-icon-button (click)="searchByApi    ($event)" class="fa fa-search">search</mat-icon>
+        </button>
+
+        <mat-label >Search</mat-label>
+        <input matInput placeholder="Text Here" formControlName="search" >
+        
+      </mat-form-field>
+
+    </form>
+
+  </div> -->
+
+  </div>
+
+
+  <div class="page-content-section"
+    style=" margin-top:-15px;border-radius: 8px;     box-shadow: 0 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 rgb(63 63 68 / 15%); border:none; ">
+    <div class="group-list mat-elevation-z2" *ngIf="GData">
+      <table mat-table matSort #table (matSortChange)="sortData($event)"
+      matSortActive="auditSection.createdDate"
+      matSortDirection="desc"
+      matSortDisableClear [dataSource]="GData" class="app-table">
+
+        <ng-container matColumnDef="checkbox">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox>
+
+            </mat-checkbox>
+          </td> 
+        </ng-container>
+        <ng-container matColumnDef="GroupId">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Group Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Group Name </th>
+          <td mat-cell  routerLink="/group/edit/{{element.id}}" class="over1" *matCellDef="let element"
+          (mouseenter)="onCellHover($event)" (mouseleave)="onCellLeave($event)"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Group Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="createdDate">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Created</th>
+          <td mat-cell *matCellDef="let element"> {{element.auditSection.createdDate | date:'dd / MM / yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastModifiedDate">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Modified</th>
+          <td mat-cell *matCellDef="let element"> {{element.auditSection.lastModifiedDate | date:'dd / MM / yyyy'}}
+          </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef style="text-align:left"> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="d-flex">
+              <a mat-icon-button routerLink="/group/edit/{{element.id}}" class="table-action-btn" color="primary"
+                title="Edit Contact">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a mat-icon-button class="table-action-btn " title="Delete Contact" color="error"
+                (click)="deleteGroup(element.id)">
+                <mat-icon>delete</mat-icon>
+              </a>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="position:20px;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+    <!-- <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [length]="totalResult" (page)="onPaginateChange($event)"
+            showFirstLastButtons></mat-paginator> -->
+  </div>
+  <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex"
+    [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+
+</div>

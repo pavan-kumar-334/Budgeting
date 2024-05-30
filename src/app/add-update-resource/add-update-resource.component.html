@@ -1,0 +1,226 @@
+<div class="page-header-section">
+    <br>
+    <H1 class="header11">{{objId && objId != "" ? 'Edit' : 'Add'}} Resource</H1>
+    <div class="p-5 cmll41" style="background-color:white;  padding: 1rem!important; height: auto;">
+        <form (ngSubmit)="onSubmited()" [formGroup]="superFormsdata">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" style="line-height: 5.5;">
+                    Photo
+                </label>
+                <div class="col-sm-6">
+                    <span *ngIf="mainUploadedImg">
+                        <img style="width: 50%;" src="{{mainImg}}" alt="">
+                        
+                        
+                        
+                    </span>
+                    <div class="customUpload" style="margin-top: 20px;">
+                        <input type="file" class="form-control" accept=".png,.jpg"
+                            (change)="onFileUpload($event)" id="imgUpload"
+                             name="resourceImage">
+                        <div class="d-flex"><label for="imgUpload" class="fa-duotone fa-camera-retro"></label><img
+                                [src]="imageSrc" *ngIf="imageSrc" class="catPreviewImage"></div>
+                        <p *ngIf="uploadImgName" style="padding-top: 10px; padding-left: 60px;">{{uploadImgName}}</p>
+                        <p *ngIf="fileNameErr" class="text-danger mt-3">
+                            File Not Matching. Please Upload Correct File.
+                        </p>
+                    </div>
+                </div>
+                <div class="d-flex col-sm-4" style="height: 38px; margin-top: 30px;">
+                    <button class="clr" type="button" value="colourchange" mat-raised-button
+                        style="box-sizing: content-box;" (click)="close()">Cancel</button>
+                    <button class="ms-2" type="submit" mat-raised-button color="primary" style="box-sizing: content-box;">
+                        Save
+                    </button>
+                </div>
+            </div>
+            
+            <div class="column" style="margin-top: 10px;">
+
+                <mat-form-field class="example-form-field" style="width: 30%;" appearance="outline">
+                    <mat-label>Resource Name</mat-label>
+                    <input type="text" placeholder="Resource Name" matInput formControlName="name" />
+                </mat-form-field>
+                
+                <mat-checkbox formControlName="active" color='primary' style="padding-left: 200px;padding-right: 70px;"
+                    class="example-margin">Active</mat-checkbox>
+                <mat-checkbox formControlName="roaster" color='primary' style="padding-right: 60px;"
+                    class="example-margin">Roster
+                </mat-checkbox>
+                <mat-checkbox formControlName="employee" color='primary' class="example-margin"
+                   >Employee</mat-checkbox><br><br>
+                   <!-- (change)="disableElement($event)" -->
+                <!--<mat-checkbox style="padding-left: 40px;padding-top: 20px;"class="example-margin">Active</mat-checkbox><br>
+                <mat-checkbox style="padding-left: 985px;" class="example-margin">Roaster</mat-checkbox><br>
+                <mat-checkbox style="padding-left: 985px;"  class="example-margin">Employee</mat-checkbox>
+               <br> -->
+                <mat-form-field class="example-form-field" style="width: 30%;" appearance="outline">
+                    <mat-label>Region</mat-label>
+                    <input type="text" placeholder="Region" matInput formControlName="region" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 30%; margin-left: 200px;">
+
+                    <mat-label>Select CostCenter</mat-label>
+                    <input type="text" placeholder="Select CostCenter" aria-label="Number" matInput
+                        formControlName="costCentreId" [matAutocomplete]="auto1">
+                    <mat-autocomplete #auto1="matAutocomplete">
+                        <mat-option *ngFor="let company1 of autoData" [value]="company1.name">
+                            {{company1.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+
+                    <!-- 
+                    <mat-label>Cost Center</mat-label>
+                    <mat-select formControlName="costCentreId">
+                        <mat-option [value]="">Select Cost Center</mat-option>
+                        <mat-option *ngFor="let country of costCenterListlist" [value]="country.id">{{country.name}}
+                        </mat-option>
+                    </mat-select> -->
+                </mat-form-field>
+                <br>
+
+                <mat-form-field class="example-form-field" style="width: 30%;  " appearance="outline">
+                    <mat-label>Salary Excl Super</mat-label>
+                    <input type="text" placeholder="Salary Excl Super" matInput formControlName="salaryExclSuper" />
+                </mat-form-field>
+
+                <mat-form-field class="example-form-field" style="width: 30%;  margin-left: 200px;"
+                    appearance="outline">
+                    <mat-label>Role</mat-label>
+                    <input type="text" placeholder="Role" matInput formControlName="role" />
+                </mat-form-field>
+                <!-- <mat-form-field appearance="outline" style="width: 30%; margin-left: 200px;">
+                    <mat-label>Projects</mat-label>
+                    <mat-select formControlName="projectId" multiple>
+                        <mat-option *ngFor="let project of projectlist" [value]="project.id">{{project.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field><br> -->
+
+
+
+                <mat-form-field class="example-form-field" style="width: 30%;" appearance="outline">
+                    <mat-label>Super</mat-label>
+                    <!-- <input type="text" placeholder="SuperName" matInput formControlName="superSalary" /> -->
+                    <input type="text" placeholder="SuperName" matInput formControlName="superSalary"
+                        (blur)="transformTotal()" (keypress)="keyPressNumbers($event)" />
+                </mat-form-field>
+
+                <mat-form-field class="example-form-field" style="width: 30%; margin-left: 200px;" appearance="outline">
+                    <mat-label>Email Id</mat-label>
+                    <input type="text" placeholder="Email Id" matInput formControlName="emailId" />
+                </mat-form-field>
+
+                <br>
+
+                <!-- <mat-form-field appearance="outline" style="width: 30%">
+                    <mat-label>Second Salary Start Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="secondSalaryStartDate">
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-datepicker-toggle style="padding-right: 90px; margin-left: -70px" matIconSuffix [for]="picker">
+                </mat-datepicker-toggle>
+                <mat-form-field appearance="outline" style=" padding-left: 140px; width: 41.5%;">
+                    <mat-label>Second Salary End Date</mat-label>
+                    <input matInput [matDatepicker]="pickerr" formControlName="secondSalaryEndDate">
+                    <mat-datepicker-toggle matIconSuffix [for]="pickerr" style="margin-left: 140px; margin-top:100px"></mat-datepicker-toggle> -->
+                <!-- <mat-datepicker #pickerr></mat-datepicker>
+                </mat-form-field>
+                <mat-datepicker-toggle style="margin-left: -70px;" matIconSuffix [for]="pickerr">
+                </mat-datepicker-toggle> -->
+
+                <mat-form-field appearance="outline" style="width: 30%">
+                    <mat-label>Salary Start Date</mat-label>
+                    <input matInput [matDatepicker]="pickerrr" (dateChange)="formatDate($event)"
+                        formControlName="salaryStartDate">
+                    <!-- <mat-datepicker-toggle matIconSuffix [for]="pickerr" style="margin-left: 140px; margin-top:100px"></mat-datepicker-toggle> -->
+                    <mat-datepicker #pickerrr></mat-datepicker>
+                </mat-form-field>
+                <mat-datepicker-toggle style="padding-right: 90px; margin-left: -70px;" matIconSuffix [for]="pickerrr">
+                </mat-datepicker-toggle>
+                <mat-form-field appearance="outline" style=" padding-left: 140px; width: 41.5%;">
+                    <mat-label>Salary End Date</mat-label>
+                    <input matInput [matDatepicker]="pickerrrr" (dateChange)="formatDate1($event)"
+                        formControlName="salaryEndDate">
+                    <mat-datepicker #pickerrrr></mat-datepicker>
+                </mat-form-field>
+                <mat-datepicker-toggle style="padding-right: 90px; margin-left: -70px;" matIconSuffix [for]="pickerrrr">
+                </mat-datepicker-toggle>
+
+
+                <br>
+                <mat-form-field class="example-form-field" style="width: 30%;" appearance="outline">
+                    <mat-label>Salary 2</mat-label>
+                    <input type="text" placeholder="Salary 2" matInput formControlName="secondSalary" />
+                </mat-form-field>
+                <br>
+                <!-- <mat-form-field appearance="outline" style="width: 30%">
+                    <mat-label></mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="salaryStartDate">>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-datepicker-toggle style="padding-right: 90px; margin-left: -70px" matIconSuffix [for]="picker">
+                </mat-datepicker-toggle> -->
+                <mat-form-field appearance="outline" style="width: 30%">
+                    <mat-label>Second Salary Start Date</mat-label>
+                    <input matInput [matDatepicker]="picker" (dateChange)="formatDate2($event)"
+                        formControlName="secondSalaryStartDate">
+                    <mat-datepicker #picker></mat-datepicker>
+
+                </mat-form-field>
+
+                <mat-datepicker-toggle style="padding-right: 90px; margin-left: -70px" matIconSuffix [for]="picker">
+                </mat-datepicker-toggle>
+
+                <mat-form-field appearance="outline" style=" padding-left: 140px; width: 41.5%;">
+                    <mat-label>Second Salary End Date</mat-label>
+                    <input matInput [matDatepicker]="picker5" (dateChange)="formatDate3($event)"
+                        formControlName="secondSalaryEndDate">
+                    <mat-datepicker #picker5></mat-datepicker>
+                </mat-form-field>
+
+                <mat-datepicker-toggle style="padding-right: 90px; margin-left: -70px" matIconSuffix [for]="picker5">
+                </mat-datepicker-toggle>
+
+
+
+                <br>
+                <mat-form-field class="example-form-field" style="width: 30%;" appearance="outline">
+                    <mat-label>Bonus</mat-label>
+                    <input type="text" placeholder="Bonus" matInput formControlName="bonus" />
+                </mat-form-field>
+                <br>
+
+
+                <mat-form-field class="example-form-field" style="width: 30%;" appearance="outline">
+                    <mat-label>Daily Cost Rate</mat-label>
+                    <input type="number" placeholder="Daily Cost Rate" matInput formControlName="dailyCostRate" />
+                </mat-form-field>
+
+                <mat-form-field class="example-form-field" style="width: 30%; margin-left: 200px;" appearance="outline">
+                    <mat-label>Transfer Price</mat-label>
+                    <input type="text" placeholder="Transfer Price" matInput formControlName="transferPrice" />
+                </mat-form-field>
+                <br>
+                <div>
+                    <label>Payroll Tax Applicable : </label>
+                    <mat-radio-group formControlName="payrollTaxApplicable">
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+
+                        <mat-radio-button value="true" color="primary">Yes</mat-radio-button>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <mat-radio-button value="false" color="primary">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>

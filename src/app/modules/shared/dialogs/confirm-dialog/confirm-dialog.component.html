@@ -1,0 +1,54 @@
+<div mat-dialog-content
+     class="h4 mb-20">
+
+    <div *ngIf="!dialogIcon"
+         class="dialog-icon"
+         fxLayout="row"
+         fxLayoutAlign="center center">
+        <img *ngIf="dialogState === 'success'"
+             src="assets/images/illustrations/success.png"
+             alt="">
+        <img *ngIf="dialogState === 'error'"
+             src="assets/images/illustrations/error.png"
+             alt="">
+        <img *ngIf="dialogState === 'info'"
+             src="assets/images/illustrations/info.png"
+             alt="">
+        <img *ngIf="dialogState === 'auth'"
+             src="assets/images/illustrations/signout.png"
+             alt="">
+    </div>
+
+    <div *ngIf="dialogIcon"
+         class="custom-dialog-icon"
+         fxLayout="row"
+         fxLayoutAlign="center center">
+        <img [src]="dialogIcon"
+             alt="">
+    </div>
+
+    <h1 matDialogTitle
+        class="text-center mt-1">{{dialogTitle}}</h1>
+
+    <div fxLayout="row"
+         class="text-center mt-20"
+         fxLayoutAlign="center center">
+        <h3 [innerHTML]="dialogMessage"></h3>
+    </div>
+
+</div>
+
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="center center">
+
+    <button mat-button
+            (click)="dialogRef.close(false)"
+            *ngIf="dialogCancelButtonText != ''">{{dialogCancelButtonText}}</button>
+    <button mat-raised-button
+            class="accent"
+            color="{{dialogState === 'error' ? 'warn' : 'primary'}}"
+            (click)="dialogRef.close(true)"
+            *ngIf="dialogConfirmButtonText != ''">{{dialogConfirmButtonText}}</button>
+
+</div>

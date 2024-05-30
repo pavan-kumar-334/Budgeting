@@ -1,0 +1,26 @@
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: white;
+ border-radius: 5px;
+}
+.mt-t20{
+  margin-top:-20px;
+}
+.submit-button-section{
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: 15px;
+  margin-left: 30px;
+  // margin-right: -40px;
+
+}
+
+ .test555 {
+   text-align:inherit; 
+}
+
+.mat-cell.hovered {
+  text-decoration:underline gray ;
+}

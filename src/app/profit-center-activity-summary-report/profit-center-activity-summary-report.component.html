@@ -1,0 +1,329 @@
+<div id="customer-container" class="page-wrapper">
+    <br>
+    <div class="page-title-wrapper M12">
+      <span class="page-title">Profit Centre Activity Summary Report</span>
+    </div> 
+  
+  
+    <div class="page-header-section1 mt-15 mb-15">
+        <form [formGroup]="superForms">
+    
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="65px" style="    justify-content: flex-start !important;" >
+    
+            <div fxFlex="25%">
+              <div  fxLayout="column" fxLayout.gt-xs="row">
+                <mat-form-field appearance="outline" class="pb-0 w-100">
+    
+                  <mat-label>Select Profit Center</mat-label>
+                  <input type="text"
+                         placeholder="Select Profit Center"
+                         aria-label="Number"
+                         matInput
+                         formControlName="profitCentre"
+                         [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let company of autoData" [value]="company.name">
+                      {{company.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+            </div>
+    
+            
+            <div fxFlex="25%">
+              <div  fxLayout="column" fxLayout.gt-xs="row">
+                <mat-form-field appearance="outline" class=" w-100" >
+                  <mat-label>Start Date</mat-label>
+                  <input matInput [matDatepicker]="pickerrr" (dateChange)="formatDate($event)"
+                      formControlName="startDate">
+                  <mat-datepicker #pickerrr></mat-datepicker>
+              </mat-form-field>
+              <mat-datepicker-toggle matIconSuffix [for]="pickerrr" style=" margin-left: -40px; margin-top: 10px;">
+              </mat-datepicker-toggle>  
+              
+              </div>
+            </div>
+            <div fxFlex="25%" >
+              <div  fxLayout="column" fxLayout.gt-xs="row">
+                <mat-form-field appearance="outline" class=" w-100" >
+                  <mat-label>End Date</mat-label>
+                  <input matInput [matDatepicker]="pickerrrr" (dateChange)="formatDate1($event)"
+                      formControlName="endDate">
+                  <mat-datepicker #pickerrrr></mat-datepicker>
+              </mat-form-field>
+              <mat-datepicker-toggle  matIconSuffix [for]="pickerrrr" style=" margin-left: -40px; margin-top: 10px;" >
+              </mat-datepicker-toggle>
+            </div>
+          </div>
+   
+            <div fxFlex="25%">
+              <div class="submit-button-section">
+                <button mat-raised-button color="primary" (click)="filterSearchforReports()"  class="submit-button ">
+                  Search
+                </button>
+                <button mat-raised-button color="primary" (click)="ExportdataforReports()"  class="export-button  ">
+                  Export
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  
+  <div *ngIf=" projectType === '' || projectType === 'T&M' ">
+      <div class="tableHeading" style="margin-top: 4%;">
+        <div  class="headingText">Time And Materials Projects</div>
+        
+      </div>
+  
+    <div class="page-content-section mt-t25">
+      
+      <div class="company-list mat-elevation-z2 table-container ">
+        <table mat-table matSort #table (matSortChange)="sortData($event)" 
+        matSortActive="auditSection.createdDate"
+        matSortDirection="desc"
+        matSortDisableClear [dataSource]="tandmData" class="app-table">
+        
+          <ng-container matColumnDef="resourcename">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Resource Name </th>
+            <td mat-cell  *matCellDef="let element"> {{element.resourceName}} </td>
+          </ng-container>        
+          <ng-container matColumnDef="projectname">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Project Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="month">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Month </th>
+            <td mat-cell *matCellDef="let element"> {{element.month}} </td>
+          </ng-container>
+          <ng-container matColumnDef="days">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Days </th>
+            <td mat-cell *matCellDef="let element"> {{element.days}} </td>
+          </ng-container>
+          <ng-container matColumnDef="sellrate">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Sell Rate</th>
+            <td mat-cell *matCellDef="let element"> {{element.sellRate}} </td>
+          </ng-container>
+          <ng-container matColumnDef="costrate">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Cost Rate </th>
+            <td mat-cell  style="cursor: pointer;" *matCellDef="let element"> {{element.costRate}} </td>
+          </ng-container>        
+          <ng-container matColumnDef="revenue">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Revenue </th>
+            <td mat-cell *matCellDef="let element"> {{element.revenue}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cost">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Cost </th>
+            <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+          </ng-container>
+          <ng-container matColumnDef="contribution">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Contribution</th>
+            <td mat-cell *matCellDef="let element"> {{element.contribution}} </td>
+          </ng-container>
+          <ng-container matColumnDef="ohadjustment">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>OH Adjustment </th>
+            <td mat-cell *matCellDef="let element"> {{element.ohAdjustment}} </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="position:20px;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'rowActive' :(row.activeClass != undefined),'fw-bold':(row.activeTotalClass != undefined)}"></tr>
+        </table>
+      </div>
+      <!-- <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
+        [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+   -->
+    </div>
+  </div>
+
+  <div *ngIf=" projectType === '' || projectType === 'FP' ">
+    <div class="tableHeading">
+        <div class="headingText">Fixed Price Projects</div>
+        
+      </div>
+
+    <div class="page-content-section mt-t25">
+  
+        <div class="company-list mat-elevation-z2 table-container ">
+          <table mat-table matSort #table (matSortChange)="sortData($event)" 
+          matSortActive="auditSection.createdDate"
+          matSortDirection="desc"
+          matSortDisableClear [dataSource]="fpData" class="app-table">
+            <ng-container matColumnDef="projectname">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Project Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+            </ng-container>        
+            <ng-container matColumnDef="type">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>Type </th>
+              <td mat-cell *matCellDef="let element"> {{element.projectType}} </td>
+            </ng-container>
+            <ng-container matColumnDef="resourcename">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Resource Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.resourceName}} </td>
+              </ng-container>
+            <ng-container matColumnDef="days">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>Days </th>
+              <td mat-cell *matCellDef="let element"> {{element.days}} </td>
+            </ng-container>
+            <ng-container matColumnDef="sellrate">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>Sell Rate</th>
+              <td mat-cell *matCellDef="let element"> {{element.sellRate}} </td>
+            </ng-container>
+            <ng-container matColumnDef="costrate">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Cost Rate </th>
+              <td mat-cell *matCellDef="let element"> {{element.costRate}} </td>
+            </ng-container>        
+            <ng-container matColumnDef="revenue">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>Revenue </th>
+              <td mat-cell *matCellDef="let element"> {{element.revenue}} </td>
+            </ng-container>
+            <ng-container matColumnDef="cost">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>Cost </th>
+              <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+            </ng-container>
+            <ng-container matColumnDef="contribution">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef>Contribution</th>
+              <td mat-cell *matCellDef="let element"> {{element.contribution}} </td>
+            </ng-container>
+
+  
+    
+            
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true" style="position:20px;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns2;" [ngClass]="{'rowActive' :(row.activeClass != undefined),'fw-bold':(row.activeTotalClass != undefined)}"></tr>
+          </table>
+        </div>
+        <!-- <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
+          [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+     -->
+      </div>
+    </div>
+    
+    <div *ngIf=" projectType === '' || projectType === 'MS' ">
+      <div class="tableHeading">
+        <div class="headingText">Managed Services</div>
+        
+      </div>
+
+    <div class="page-content-section mt-t25">
+  
+        <div class="company-list mat-elevation-z2 table-container ">
+            <table mat-table matSort #table (matSortChange)="sortData($event)"  
+            matSortActive="auditSection.createdDate"
+            matSortDirection="desc"
+            matSortDisableClear [dataSource]="msData" class="app-table">
+              <ng-container matColumnDef="projectname">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Project Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+              </ng-container>        
+              <ng-container matColumnDef="type">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.projectType}} </td>
+              </ng-container>
+              <ng-container matColumnDef="resourcename">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef>Resource Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.resourceName}} </td>
+                </ng-container>
+              <ng-container matColumnDef="days">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Days </th>
+                <td mat-cell *matCellDef="let element"> {{element.days}} </td>
+              </ng-container>
+              <ng-container matColumnDef="sellrate">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Sell Rate</th>
+                <td mat-cell *matCellDef="let element"> {{element.sellRate}} </td>
+              </ng-container>
+              <ng-container matColumnDef="costrate">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Cost Rate </th>
+                <td mat-cell  *matCellDef="let element"> {{element.costRate}} </td>
+              </ng-container>        
+              <ng-container matColumnDef="revenue">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Revenue </th>
+                <td mat-cell *matCellDef="let element"> {{element.revenue}} </td>
+              </ng-container>
+              <ng-container matColumnDef="cost">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Cost </th>
+                <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+              </ng-container>
+              <ng-container matColumnDef="contribution">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Contribution</th>
+                <td mat-cell *matCellDef="let element"> {{element.contribution}} </td>
+              </ng-container>
+  
+    
+      
+              
+      
+              <tr mat-header-row *matHeaderRowDef="displayedColumns1; sticky: true" style="position:20px;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+            </table>
+          </div>
+        <!-- <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
+          [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+     -->
+      </div>
+    </div>
+    <div *ngIf=" projectType === '' || projectType === 'SOFTWARE' ">
+      <div class="tableHeading">
+        <div class="headingText">Software Licensing</div>
+        
+      </div>
+
+    <div class="page-content-section mt-t25">
+  
+        <div class="company-list mat-elevation-z2 table-container ">
+            <table mat-table matSort #table (matSortChange)="sortData($event)"  
+            matSortActive="auditSection.createdDate"
+            matSortDirection="desc"
+            matSortDisableClear [dataSource]="softwareData" class="app-table">
+              <ng-container matColumnDef="projectname">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Project Name </th>
+                <td mat-cell  *matCellDef="let element"> {{element.projectName}} </td>
+              </ng-container>        
+              <ng-container matColumnDef="type">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.projectType}} </td>
+              </ng-container>
+              <ng-container matColumnDef="resourcename">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef>Resource Name </th>
+                  <td mat-cell *matCellDef="let element"> {{element.resourceName}} </td>
+                </ng-container>
+              <ng-container matColumnDef="days">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Days </th>
+                <td mat-cell *matCellDef="let element"> {{element.days}} </td>
+              </ng-container>
+              <ng-container matColumnDef="sellrate">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Sell Rate</th>
+                <td mat-cell *matCellDef="let element"> {{element.sellRate}} </td>
+              </ng-container>
+              <ng-container matColumnDef="costrate">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Cost Rate </th>
+                <td mat-cell  *matCellDef="let element"> {{element.costRate}} </td>
+              </ng-container>        
+              <ng-container matColumnDef="revenue">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Revenue </th>
+                <td mat-cell *matCellDef="let element"> {{element.revenue}} </td>
+              </ng-container>
+              <ng-container matColumnDef="cost">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Cost </th>
+                <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+              </ng-container>
+              <ng-container matColumnDef="contribution">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef>Contribution</th>
+                <td mat-cell *matCellDef="let element"> {{element.contribution}} </td>
+              </ng-container>
+  
+    
+      
+              
+      
+              <tr mat-header-row *matHeaderRowDef="displayedColumns3; sticky: true" style="position:20px;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+            </table>
+          </div>
+        <!-- <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
+          [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+     -->
+      </div>
+    </div>
+  </div>

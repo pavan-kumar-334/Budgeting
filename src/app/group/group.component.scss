@@ -1,0 +1,17 @@
+.aligncountry {
+    text-align: right;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+  }
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+    margin-top: 0px !important;
+}
+.over1{
+    cursor: pointer;
+    
+}
+.mat-cell.hovered {
+    text-decoration:underline gray ;
+  }

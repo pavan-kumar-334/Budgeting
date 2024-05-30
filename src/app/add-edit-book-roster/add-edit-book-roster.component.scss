@@ -1,0 +1,29 @@
+.header11{
+  font-weight: 600;
+  font-size: 1.4em;
+  margin-left: 40px;
+  margin-top: 20px;
+
+}
+.page-content-section{
+  background-color: #fff;
+  padding: 1rem;
+  margin: 40px;  
+  min-height: 500px;
+}
+::ng-deep .mat-form-field-wrapper{
+  padding-bottom: 15px;
+}
+.date-picker {
+  position: relative;
+  .dateIcon {
+    position: absolute;
+    left: 46%;
+    top:15px;
+  }
+}
+.submit-button-section{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}

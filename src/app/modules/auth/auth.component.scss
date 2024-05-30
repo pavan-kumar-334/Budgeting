@@ -1,0 +1,109 @@
+@import 'responsive.mixin.scss';
+auth {
+    height: 100%;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #5a5a5a;
+
+    #auth {
+        width: 100%;
+
+        #auth-form-wrapper {
+            -webkit-overflow-scrolling: touch;
+            width:100%;
+            #auth-form {
+                display: flex;
+                flex-direction: column;               
+                #login{
+                    width: 50%;
+                    height: fit-content;
+                    margin: 20px auto 0;
+                    border-radius: 6px;
+                    background-color: #fff;
+                    mat-card{
+                        padding: 30px 50px 50px;
+                        @include media-breakpoint-down('xs') {
+                            padding: 0 15px;
+                        }
+                    }
+                    @include media-breakpoint-down('md') {
+                        width: 75%;
+                        margin: 0 auto;
+                    }
+                    @include media-breakpoint-down('xs') {
+                        width: 90%;
+                        margin: 0 auto;
+                    }
+                    
+
+                }
+                .quote-conatiner{
+                    width: 40%;
+                    background-color: #f2f6fb;
+                    .quote{
+                        top: 50%;
+                        left: 50%;
+                        width: 75%;
+                        height: 53%;
+                        display: flex;
+                        position: relative;
+                        transform: translate(-50%, -50%);
+                        align-items: center;
+                        background-size: cover;
+                        justify-content: center;
+                        background-image: url("../../../assets/images/illustrations/login.svg");
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+                    @include media-breakpoint-down('lg') {
+                        display: none;
+                    }
+                }
+                .logo {
+                   text-align: center;
+                    img {
+                        height: 75px;
+                        @include media-breakpoint-down('xs') {
+                            height: 50px;
+                        }    
+                    }
+                }
+                .login-title{
+                    margin: 24px 0;
+                    font: 400 24px / 32px Roboto, "Helvetica Neue", sans-serif;
+                }
+                form {
+                    width: 100%;
+
+                    mat-form-field {
+                        width: 100%;
+                    }
+
+                    mat-checkbox {
+                        margin: 0;
+                    }
+
+                    .remember-forgot-password {
+                        font-size: 13px;
+                        margin-top: 8px;
+
+                        .remember-me {
+                            margin-bottom: 16px
+                        }
+
+                        .forgot-password {
+                            font-size: 16px;
+                            margin-bottom: 16px;
+                            color: #272e38;
+                        }
+                    }
+
+                }
+                
+                
+            }
+        }
+    }
+}

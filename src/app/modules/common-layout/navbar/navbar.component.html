@@ -1,0 +1,86 @@
+<mat-sidenav-container class="mat-sidenav-container">
+  <mat-sidenav
+    id="sidenav"
+    #sidenav
+    [mode]="mode"
+    [opened]="isSidenavOpened"
+    class="red-container"
+  >
+    <mat-nav-list class="sidenav-list">
+      <div *ngIf="mode == 'over'" class="close-sidenav">
+        <a href="javascript:void(0)" (click)="sidenav.close()">x</a>
+      </div>
+      <a routerLink="/group"
+        ><img
+          class="logo"
+          style="height: 110px; margin-left: 20%"
+          alt="Logo"
+          src="assets/images/logos/pngwing.png"
+      /></a>
+      <!-- <a routerLink="/login"><img class="logo" alt="Logo" src="assets/images/logos/jarvis.png"></a> -->
+      <div
+        class="menu-container"
+        [ngClass]="!sidenav.opened && mode !== 'over' ? 'drawer-close' : ''"
+      >
+        <ng-container *ngFor="let menu of menuList; index as i">
+          <ng-container
+            [ngTemplateOutlet]="menu.children ? childMenu : parentMenu"
+            [ngTemplateOutletContext]="{ menu: menu }"
+          >
+          </ng-container>
+        </ng-container>
+      </div>
+    </mat-nav-list>
+
+    <ng-template #parentMenu let-menu="menu">
+      <mat-list-item
+        [routerLink]="menu.routerLink"
+        (click)="mode == 'over' ? sidenav.close() : false"
+        routerLinkActive="is-active"
+      >
+        <div class="icon-container">
+          <mat-icon>{{ menu.icon }}</mat-icon>
+        </div>
+        {{ menu.text }}
+        <div class="hidden-menu-title">
+          {{ menu.text }}
+        </div>
+      </mat-list-item>
+    </ng-template>
+
+    <ng-template #childMenu let-menu="menu">
+      <mat-expansion-panel [class.mat-elevation-z0]="true" #matExpansionPanel>
+        <mat-expansion-panel-header>
+          <mat-list-item>
+            <div class="icon-container">
+              <mat-icon>{{ menu.icon }}</mat-icon>
+            </div>
+            {{ menu.text }}
+            <div class="hidden-menu-title">
+              {{ menu.text }}
+            </div>
+          </mat-list-item>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <mat-list-item
+            [routerLink]="submenu.routerLink"
+            *ngFor="let submenu of menu.children"
+            routerLinkActive="is-active"
+          >
+            <mat-icon>{{ submenu.icon }}</mat-icon> {{ submenu.text }}
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+    </ng-template>
+  </mat-sidenav>
+  <mat-sidenav-content
+    [ngClass]="!sidenav.opened && mode !== 'over' ? 'sidenavclosed' : ''"
+  >
+    <toolbar
+      (sidenav)="sidenav.toggle()"
+      (matExpansionPanel)="matExpansionPanel?.close()"
+      [showCloseNav]="sidenav.opened && mode !== 'over'"
+    ></toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

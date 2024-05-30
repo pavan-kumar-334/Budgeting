@@ -1,0 +1,215 @@
+<div id="customer-container" class="page-wrapper">
+
+    <br>
+    <div class="page-title-wrapper M12">
+      <span class="page-title">Project Pricing</span>&nbsp;<span class="list-count" *ngIf="projectlistTotal">({{
+        projectlistTotal}})</span>
+      
+    </div>
+  
+    <div class="page-header-section1 mt-15 mb-15" >
+      <form [formGroup]="superForms">
+  
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
+  
+  
+          <div fxFlex="15%">
+            <div fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Select Project</mat-label>
+                <input type="text"
+                       placeholder="Select Project"
+                       aria-label="Number"
+                       matInput
+                       formControlName="name"
+                       [matAutocomplete]="auto3">
+                <mat-autocomplete #auto3="matAutocomplete">
+                  <mat-option *ngFor="let company of autoData3" [value]="company.name">
+                    {{ company.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+  
+          <div fxFlex="15%">
+            <div fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="pb-0 w-100">
+  
+                <mat-label>Select Resource</mat-label>
+                <input type="text"
+                       placeholder="Select Resource"
+                       aria-label="Number"
+                       matInput
+                       formControlName="resources"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let company of autoData" [value]="company.name">
+                    {{company.name}}
+                  </mat-option>
+                </mat-autocomplete>
+  
+                <!-- <mat-label>Select Resource</mat-label>
+                <mat-select formControlName="resources" multiple>
+                  <mat-option *ngFor="let resource of resourceList" [value]="resource.resourceId">{{resource.name}}
+                  </mat-option>
+                </mat-select> -->
+              </mat-form-field>
+            </div>
+          </div>
+  
+          <div fxFlex="15%">
+            <div fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="pb-0 w-100">
+  
+                <mat-label>Select Profit Center</mat-label>
+                <input type="text"
+                       placeholder="Select Profit Center"
+                       aria-label="Number"
+                       matInput
+                       formControlName="profitcentreid"
+                       [matAutocomplete]="auto1">
+                <mat-autocomplete #auto1="matAutocomplete">
+                  <mat-option *ngFor="let company of autoData1" [value]="company.name">
+                    {{company.name}}
+                  </mat-option>
+                </mat-autocomplete>
+  
+  
+  
+                <!-- <mat-label>Select Profit Center</mat-label>
+                <mat-select formControlName="profitcentreid">
+                  <mat-option value="">--Select Profit Center--</mat-option>
+                  <mat-option *ngFor="let profitcenter of profitcenterlist" [value]="profitcenter.id">
+                    {{profitcenter.name}}</mat-option>
+                </mat-select> -->
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="15%">
+            <div fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="pb-0 w-100">
+  
+  
+                <mat-label>Select Customer</mat-label>
+                <input type="text"
+                       placeholder="Select Customer"
+                       aria-label="Number"
+                       matInput
+                       formControlName="customerid"
+                       [matAutocomplete]="auto2">
+                <mat-autocomplete #auto2="matAutocomplete">
+                  <mat-option *ngFor="let company of autoData2" [value]="company.name">
+                    {{company.name}}
+                  </mat-option>
+                </mat-autocomplete>
+  
+  
+                <!-- <mat-label>Select Customer</mat-label>
+                <mat-select formControlName="customerid">
+                  <mat-option value="">--Select Customer-- </mat-option>
+                  <mat-option *ngFor="let customer of customerlist" [value]="customer.id">{{customer.name}}</mat-option>
+                </mat-select> -->
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="15%">
+            <div fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="pb-0 w-100">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option value="">--Select Type-- </mat-option>
+                  <mat-option *ngFor="let Ptype of projectTypes | keyvalue:returnOrder" [value]="Ptype.key">
+                    {{Ptype.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+  
+          <div fxFlex="10%">
+            <div class="submit-button-section">
+              <button mat-raised-button color="primary" (click)="filterSearchforProject()" class="submit-button ml600">
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  
+  
+    <div class="page-content-section">
+  
+      <div class="company-list mat-elevation-z2 table-container ">
+        <table mat-table matSort #table (matSortChange)="sortData($event)"
+        matSortActive="auditSection.createdDate"
+        matSortDirection="desc"
+        matSortDisableClear [dataSource]="projectlist" class="app-table">
+  
+  
+  
+          <ng-container matColumnDef="CId">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Project Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="name">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Project Name </th>
+            <td mat-cell (click)="navigateURL(element.type,element.id)" style="cursor: pointer;" *matCellDef="let element" (mouseenter)="onCellHover($event)" (mouseleave)="onCellLeave($event)"> {{element.name}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="customer">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Customer </th>
+            <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="type">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Type </th>
+            <td mat-cell *matCellDef="let element"> 
+              <span    *ngIf="element.type!=='TANDM'">{{element.type}}</span>
+              <span    *ngIf="element.type==='TANDM'">{{"T&M"}}</span>  
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="profitcentre">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Profit Center </th>
+            <td mat-cell *matCellDef="let element"> {{element.profitCentreName}} </td>
+          </ng-container>
+  
+          <!-- <ng-container matColumnDef="resource">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef>Resource</th>
+            <td mat-cell *matCellDef="let element">
+              <span *ngFor="let resource of projectLoopData2?.resources; let i=index;" >
+                <span *ngIf="i==0">{{resource.name}} </span>
+          
+                <span *ngIf="i>=1">, {{resource.name}} </span>
+              </span>
+            
+            </td>
+          </ng-container> -->
+  
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef style="text-align: left;"> Actions </th>
+            <td mat-cell *matCellDef="let element">
+              <div class="d-flex">
+                <a mat-icon-button (click)="navigateURL(element.type,element.id)" class="table-action-btn" color="primary"
+                  title="Edit Contact">
+                  <mat-icon>edit</mat-icon>
+                </a>
+                <a mat-icon-button class="table-action-btn " (click)="deleteProject(element.id,element.type)" title="Delete Contact"
+                  color="error">
+                  <mat-icon>delete</mat-icon>
+                </a>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="position:20px;"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex"
+        [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+  
+    </div>
+  
+  </div>

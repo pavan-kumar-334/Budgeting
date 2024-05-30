@@ -1,0 +1,66 @@
+.aligncountry {
+    text-align: right;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+  }
+
+.header-form{
+
+    ::ng-deep .mat-form-field-wrapper {
+
+        padding-bottom: 0 !important;
+
+      }
+
+}
+.submit-button-section{
+  margin: 10px 0 0 0;  
+  .submit-button{
+    margin: 0 10px 0 0;
+  }
+  // display: flex;
+
+  // justify-content: flex-end;
+
+  // margin-top: 15px;
+  // margin-left: 30px;
+  // margin-right: -40px;
+
+}
+table {
+  width: 100%;
+}
+
+th, td {
+  vertical-align: top;
+  border-right: 1px solid rgba(0,0,0,.12);
+  padding-left: 16px !important;
+  padding-top: 14px !important;
+}
+
+.tableHeading{
+  height: 60px;
+  width: 100%;
+  background-color:rgba(0, 0, 0, 0.136);
+   margin-bottom: 3%;
+   margin-top:7%;
+   box-shadow:0px 0px 10.408px 1.128px rgba(41, 3, 80, 0.15);
+}
+
+.headingText{
+  padding-top: 16px;
+  padding-left: 10px;
+  color: dimgrey;
+  font-size: 1.3em;
+  font-weight: 500;
+  font-family: Montserrat, Arial, serif;
+//font: inherit !important;
+  //font-family: Montserrat, Arial, serif
+}
+.rowActive{
+  font-weight: bold;
+  background-color: #F6F7F7;
+}

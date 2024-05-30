@@ -1,0 +1,165 @@
+<div id="customer-container" class="page-wrapper">
+  <br>
+  <div class="page-title-wrapper M12">
+    <span class="page-title">Weekly Summary Report</span>     
+  </div>
+
+
+  <div class="page-header-section1 mt-15 mb-15">
+    <form [formGroup]="superForms"> 
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="65px" style="justify-content: flex-start !important;" >
+
+        <div fxFlex="25%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class=" w-100" >
+
+              <mat-label>Select Profit Center</mat-label>
+              <input type="text"
+                     placeholder="Select Profit Center"
+                     aria-label="Number"
+                     matInput
+                     formControlName="profitCentre"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let company of autoData" [value]="company.name">
+                  {{company.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+
+        
+        <div fxFlex="25%" style="margin-right: 32px !important;">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class=" w-100" >
+              <mat-label>Select Project</mat-label>
+              <input type="text"
+                     placeholder="Select Project"
+                     aria-label="Number"
+                     matInput
+                     formControlName="project"
+                     [matAutocomplete]="autoProject">
+              <mat-autocomplete #autoProject="matAutocomplete">
+                <mat-option *ngFor="let project of projectData" [value]="project.name">
+                  {{project.name}}
+                </mat-option>
+              </mat-autocomplete>
+          </mat-form-field>
+          <!-- <mat-datepicker-toggle matIconSuffix [for]="startDate" style=" margin-left: -40px; margin-top: 10px;">
+          </mat-datepicker-toggle>   -->
+          
+          </div>
+        </div>
+        <div fxFlex="25%" >
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class=" w-100" >
+              <mat-label>Select Week</mat-label>
+              <input matInput [matDatepicker]="startDate" (dateChange)="formatDate($event)"
+                  formControlName="startDate"  [matDatepickerFilter]="dateFilter">
+              <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+          <mat-datepicker-toggle  matIconSuffix [for]="startDate" style=" margin-left: -40px; margin-top: 10px;" >
+          </mat-datepicker-toggle>
+        </div>
+      </div>
+
+        <div fxFlex="30%">
+          <div class="submit-button-section">
+            <button mat-raised-button color="primary" (click)="filterSearchforReports()" class="submit-button ml600 ">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+<div class="page-content-section mt-t25">
+<div class="company-list mat-elevation-z2 table-container ">
+  <div *ngIf="reportData.length === 0" class="no-data-container">
+    No Data
+  </div>
+
+  <div class="company-list mat-elevation-z2 table-container " *ngIf="reportData.length > 0">
+    <table mat-table matSort #table (matSortChange)="sortData($event)"
+    matSortActive="auditSection.createdDate"
+    matSortDirection="desc"
+    matSortDisableClear [dataSource]="reportData" class="app-table">
+
+    <ng-container matColumnDef="resourceName">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Resource Name
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.resourceName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="projectName">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Project Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="weekFrom">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Week from</th>
+        <td mat-cell *matCellDef="let element"> {{element.weekFrom}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="weekTo">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Week to</th>
+        <td mat-cell *matCellDef="let element"> {{element.weekTo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expectedBillableHrs">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Expected Billable hrs</th>
+        <td mat-cell *matCellDef="let element"> {{element.expectedBillableHrs | number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actualBilledHrs">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Actual Billed Hrs</th>
+        <td mat-cell *matCellDef="let element;let i = index">           
+          <input type="number" class="border rounded p-2 w-auto" matInput value="{{element.actualBilledHrs}}" (change)="updateReport($event,'billedHrs',element,i)" *ngIf="element.isTotal == undefined"> 
+          <span *ngIf="element.isTotal">{{element.actualBilledHrs| number}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="sellRate">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Sell rate</th>
+        <td mat-cell *matCellDef="let element"> {{element.sellRate| number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expectedRevenue">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Expected Revenue</th>
+        <td mat-cell *matCellDef="let element"> {{element.expectedRevenue| number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actualRevenue">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Actual Revenue</th>
+        <td mat-cell *matCellDef="let element"> {{element.actualRevenue| number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="difference">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Difference</th>
+        <td mat-cell *matCellDef="let element"> {{element.difference| number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="comments">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Comments</th>
+        <td mat-cell *matCellDef="let element;let i=index"> 
+          <input type="text" class="border rounded p-2 w-auto" matInput value="{{element.comments}}" (change)="updateReport($event,'comments',element,i)" *ngIf="element.isTotal == undefined">
+          <span *ngIf="element.isTotal">{{element.comments}}</span>
+        </td>
+      </ng-container>
+
+      
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="position:20px;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'rowActive' :(row.isTotal),'fw-bold':(row.isTotal)}"></tr>
+    </table>
+  </div>
+
+</div>
+</div>
+
+
+</div>

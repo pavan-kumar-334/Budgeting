@@ -1,0 +1,210 @@
+<div id="customer-container" class="page-wrapper">
+
+  <br>
+  <div class="page-title-wrapper M12">
+    <span class="page-title">Profit Center</span>&nbsp;<span class="list-count" *ngIf="GaData">({{ GaData}})</span>
+    <button mat-raised-button color="primary" style=" float: right;" routerLink="/profitCenter/add"
+      class="submit-button ml500">
+      Add ProfitCenter
+    </button>
+  </div>
+
+
+  <div class="page-header-section1 mt-15 mb-15"> 
+    <form [formGroup]="superForms">
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="65px" fxLayoutAlign="center">
+
+        <div fxFlex="25%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+              <mat-label>Profit Center Name</mat-label>
+              <input matInput placeholder="Text Here" formControlName="name">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="25%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+
+              <mat-label>Select Country</mat-label>
+              <input type="text"
+                     placeholder="Select Country"
+                     aria-label="Number1"
+                     matInput
+                     formControlName="countryId"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let company1 of autoData1" [value]="company1.name">
+                  {{company1.name}}
+                </mat-option>
+              </mat-autocomplete>
+
+
+              <!-- <mat-label>Select Country</mat-label>
+        <mat-select formControlName="countryId">
+          <mat-option value="">--Select Country--</mat-option>
+          <mat-option *ngFor="let country of countrieslist" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select> -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="25%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+             
+                <!-- <mat-label>Company Name</mat-label>
+                <input [matAutocomplete]="dataaaaaaa" (ngModelChange)="filterCompanies($event)" matInput placeholder="Text Here" formControlName="companyId"> -->
+              
+                 
+                
+                  <mat-label>Company Name</mat-label>
+                  <input type="text"
+                         placeholder="Company Name"
+                         aria-label="Number"
+                         matInput
+                         formControlName="companyId"
+                         [matAutocomplete]="auto1">
+                  <mat-autocomplete #auto1="matAutocomplete">
+                    <mat-option *ngFor="let company of autoData" [value]="company.name">
+                      {{company.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                
+
+            
+                  <!-- <mat-select placeholder="Custom placeholder">
+                    <mat-select-filter  formControlName="companyId" placeholder="company" ></mat-select-filter>
+                    <mat-option *ngFor="let item of companylist" [value]="item.id">
+                      {{item.name}}
+                    </mat-option>
+                  </mat-select> -->
+              
+
+              <!-- <mat-label>Select Company</mat-label>
+              <mat-select formControlName="companyId">
+                <mat-option value="">--Select Company--</mat-option>
+                <mat-option *ngFor="let company of companylist" [value]="company.id">{{company.name}}</mat-option>
+              </mat-select> -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="30%">
+          <div class="submit-button-section">
+            <button mat-raised-button color="primary" (click)="filterSearchforProfitCenter()" class="submit-button ml600 "  >
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+  <!-- <div class="page-header-section">
+
+    <form [formGroup]="superForms" style="height: 63px;">
+      <mat-form-field appearance="outline" style="padding-right: 70px; ">
+        <mat-label>Profit Center Name</mat-label>
+        <input matInput placeholder="Text Here" formControlName="name">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="padding-right: 70px;">
+        <mat-label>Select Country</mat-label>
+        <mat-select formControlName="countryId">
+          <mat-option value="">--Select Country--</mat-option>
+          <mat-option *ngFor="let country of countrieslist" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Select Company</mat-label>
+        <mat-select formControlName="companyId">
+          <mat-option value="">--Select Company--</mat-option>
+          <mat-option *ngFor="let company of companylist" [value]="company.id">{{company.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+     
+
+      <button mat-raised-button color="primary" (click)="filterSearchforcompany()"
+        style="position:relative; left: 120px; width: 95px; " class="submit-button ml600">
+        Submit
+      </button>
+
+    </form>
+
+  </div> -->
+  <div class="page-content-section mt-t25">
+
+    <div class="company-list mat-elevation-z2 table-container">
+      <table mat-table matSort #table (matSortChange)="sortData($event)"
+      matSortActive="auditSection.createdDate"
+      matSortDirection="desc"
+      matSortDisableClear [dataSource]="profitcenterlist" class="app-table">
+
+
+        <ng-container matColumnDef="Cid">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Profit Center Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Profit Center Name </th>
+          <td mat-cell routerLink="/profitCenter/edit/{{element.id}}" style="cursor: pointer;" *matCellDef="let element" (mouseenter)="onCellHover($event)" (mouseleave)="onCellLeave($event)"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="countryId">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Country </th>
+          <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        </ng-container>
+        <ng-container matColumnDef="CompanyId">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Company </th>
+          <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="createdDate">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Created</th>
+          <td mat-cell *matCellDef="let element"> {{element.auditSection.createdDate |date:'dd / MM / yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastModifiedDate">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Modified</th>
+          <td mat-cell *matCellDef="let element"> {{element.auditSection.lastModifiedDate |date:'dd / MM / yyyy'}} </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef style="text-align: left;"> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="d-flex">
+              <a mat-icon-button routerLink="/profitCenter/edit/{{element.id}}" class="table-action-btn" color="primary"
+                title="Edit Contact">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a mat-icon-button class="table-action-btn " (click)="deleteProfitCenter(element.id)"
+                title="Delete Contact" color="error">
+                <mat-icon>delete</mat-icon>
+              </a>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="position:20px;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex"
+      [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+
+  </div>
+
+</div>

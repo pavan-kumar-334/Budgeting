@@ -1,0 +1,36 @@
+.aligncountry {
+    text-align: right;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+   border-radius: 5px;
+  }
+  .submit-button-section{
+
+    display: flex;
+  
+    justify-content: flex-end;
+  
+    margin-top: 15px;
+    margin-left: -300px;
+    // margin-right: -40px;
+  
+  }
+  .mt-t20{
+   margin-top: -20px;
+  }
+
+  .searchmargin{
+    margin-right: 230px;
+  }
+  
+  ::ng-deep .page-header-section1 .mat-form-field-wrapper{
+
+  padding-bottom: 0;
+
+}
+
+.mat-cell.hovered {
+  text-decoration:underline gray ;
+}

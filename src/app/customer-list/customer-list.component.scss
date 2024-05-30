@@ -1,0 +1,30 @@
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: white;
+ border-radius: 5px;
+}
+::ng-deep .page-header-section1 .mat-form-field-wrapper{
+
+  padding-bottom: 0;
+
+}
+.h-60 {
+ height: 60px;
+}
+.submit-button-section{
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: 15px;
+
+}
+
+
+.searchmargin{
+  margin-right: 230px;
+}
+
+.mat-cell.hovered {
+  text-decoration:underline gray ;
+}

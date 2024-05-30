@@ -1,0 +1,84 @@
+.cmll40{
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    height: 40px;
+
+}
+
+.cmll41{
+    margin-left: 40px;
+    margin-top: 40px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    height: auto;
+}
+.cmll42{
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    height: 40px;
+
+}
+
+.header11{
+    font-weight: 600;
+    font-size: 1.4em;
+    margin-left: 40px;
+    margin-top: 20px;
+
+}
+.clr:hover{
+    background-color: #00c4f8;
+}
+.tableDisplay{
+    display: flex;
+    overflow-x: scroll;
+  }
+.borderTablew1{
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.table-responsive {
+    margin-top: 45px;
+}
+.table>:not(:last-child)>:last-child>* {
+    border-bottom-color: inherit;
+    font-weight: 400;
+}
+.text-width {
+    width: 180px;
+    height: 40px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.5em 0em 0.5em 0em;
+    margin-top: 1.1em;
+}
+::ng-deep .mat-form-field-infix {
+    border-top: 0em solid transparent;
+}
+.form-field-price{
+    margin: -0.25em 0px ;
+    margin-top: -8px;
+    ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+        margin: 0px !important;
+        color:red;
+    }
+}
+::ng-deep .mat-form-field-label-wrapper{
+    top: -1.2em;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+    height: 45px;
+}
+::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+}
+// ::ng-deep .mat-icon-button {
+//     height: 30px;
+// }

@@ -1,0 +1,104 @@
+<div id="customer-container" class="page-wrapper">
+
+
+
+  <div class="page-header-section1 mt-15 mb-15">
+    <form [formGroup]="superFormsdata" (ngSubmit)="onSubmited()">
+      
+      <div class="d-flex justify-content-end cmll40">
+        <button class="ms-2" type="submit" mat-raised-button color="primary" style="box-sizing: content-box;">
+          Save
+        </button>
+      </div>
+
+        <div class="pd23" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="40px">
+          <div fxFlex="20%">
+            <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="pb-0 w-100">
+                <!-- <mat-label>Base Currency</mat-label>
+
+                <mat-select [(ngModel)]="selected" formControlName="baseCurrency">
+                  <mat-option value="">--Select Currency--</mat-option> -->
+                  <!-- <mat-option [value]="p.id" *ngFor="let p of partyList">{{p.partyName}}</mat-option> -->
+                  <!-- <mat-option value="AUD">AUD</mat-option>
+                  <mat-option value="USD">USD</mat-option>
+                  <mat-option value="INR">INR</mat-option>
+                  <mat-option value="GBP">GBP</mat-option>
+                </mat-select> -->
+                <mat-label>Base Currency</mat-label>
+                <input matInput value="AUD" readonly formControlName="baseCurrency">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="40%">
+            <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="pb-0 w-100">
+                <mat-label>Base Rate</mat-label>
+                <input matInput value="1" readonly formControlName="baseConvesionRate">
+              </mat-form-field>
+
+            </div>
+          </div>
+        </div><br>
+     <div class="pd24">
+      <div fxLayout="row" style="margin-left: -300px;" fxLayoutAlign="end">
+        <button type="button" fxLayoutAlign="end" mat-raised-button color="primary" (click)="addResource()">
+          Add Currency
+        </button>
+      </div >
+
+      <div formArrayName="conversionCurrencies"  >
+        <div *ngFor="let electiondata of conversionCurrencies.controls; let i=index" [formGroupName]="i">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="40px">
+            <!-- <div fxFlex="20%">
+              <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+                <mat-form-field appearance="outline" class="pb-0 w-100">
+                  <mat-label>Country</mat-label>
+                  <mat-select formControlName="resourceId">
+                    <mat-option *ngFor="let resource of countryList"
+                      [value]="resource.id">{{resource.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div> -->
+            <div fxFlex="20%">
+              <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+                <mat-form-field appearance="outline" class="pb-0 w-100">
+                  <mat-label>Currency</mat-label>
+
+                  <mat-select formControlName="currencyCode">
+                    <mat-option value="">--Select Currency--</mat-option>
+                    <!-- <mat-option [value]="p.id" *ngFor="let p of partyList">{{p.partyName}}</mat-option> -->
+                    <mat-option value="AUD">AUD</mat-option>
+                    <mat-option value="USD">USD</mat-option>
+                    <mat-option value="INR">INR</mat-option>
+                    <mat-option value="GBP">GBP</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+            </div>
+            <div fxFlex="40%">
+              <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+                <mat-form-field appearance="outline" class="pb-0 w-100">
+                  <mat-label>Conversion Rate</mat-label>
+                  <input matInput formControlName="conversionRate">
+                </mat-form-field>
+
+              </div>
+            </div>
+            <div fxFlex="20%">
+              <button style="margin-top: 10px;" color="primary" mat-raised-button (click)="removeCandidate(i)"
+                class="submit-button mr-15 mat-raised-button" aria-label="remoce">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    </form>
+
+  </div>
+</div>

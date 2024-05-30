@@ -1,0 +1,165 @@
+.header11{
+  font-weight: 600;
+  font-size: 1.4em;
+  margin-left: 40px;
+  margin-top: 20px;
+
+}
+.page-content-section{
+  background-color: #fff;
+  padding: 1rem;
+  margin: 40px;  
+  min-height: 500px;
+  height: auto;
+}
+.example-container {  
+  max-width: 100%;
+  overflow: auto;
+}
+
+table {
+  width: 800px;
+}
+
+td.mat-column-star {
+  width: 20px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.mat-mdc-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-mdc-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
+}
+.table-action-icon{
+  display: flex;
+  align-items: center;
+}
+.demo-table th, .demo-table td{
+  border-right: 1px solid #e0e0e0;
+  min-width: 50px;
+
+}
+.table-header{
+  // border-right: 1px solid; 
+  padding:10px;
+  //font-weight: bold;
+  text-align: center;
+}
+.hidden{
+  visibility: hidden;
+}
+// .resource-name{
+//   margin-left: 20px;
+//   //position: right;
+// }
+.iconColor{
+  color: green;
+  
+}
+::ng-deep .staticField .mat-form-field-infix{
+
+  border: 0 !important;
+
+}
+.bclr100{
+  background-color: rgb(165, 238, 165);
+  cursor: pointer;
+}
+.bclr101{
+  color:rgb(231, 171, 61) ;
+  cursor: pointer;
+}
+
+.bclr50{
+  background-color: rgb(244, 244, 132);
+  cursor: pointer;
+}
+
+.bclr20{
+  background-color: rgb(235, 115, 115);
+  cursor: pointer;
+}
+
+th.mat-header-cell {
+  text-align: center;
+  }
+.ttt433{
+  margin-top:-30px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+
+  background-color: white;
+
+  border-radius: 5px;    
+
+}
+
+
+
+::ng-deep .page-header-section1 .mat-form-field-wrapper{
+
+  padding-bottom: 0;
+
+}
+
+.date-picker {
+
+  position: relative;
+
+  .dateIcon {
+
+    position: absolute;
+
+    right: -5px;
+
+    top:10px;
+
+  }
+
+}
+
+.submit-button-section{
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: 15px;
+
+}
+
+
+.clrr{
+
+  background-color: #eeeeee;
+
+  height: 54px;
+
+}
+
+.clrrr{
+
+  background-color: rgb(156, 234, 234);
+
+  height: 47px;
+
+}
+.highlight {
+  background-color: #4CAF50 !important;
+  color: #ffffff;
+}
+.myDIV:hover + .hide {
+  display: block;
+  color: rgb(220, 124, 15);
+  font-weight: bold;
+}
+.hide {
+  display: none;
+}

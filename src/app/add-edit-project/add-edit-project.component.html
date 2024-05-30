@@ -1,0 +1,120 @@
+<div class="page-header-section">
+  <br>
+  <H1 class="header11">{{objId && objId != "" ? 'Edit' : 'Add'}} Project</H1>
+
+  <div class="p-5 cmll41" style="background-color:white;  padding: 1rem!important;">
+    <form (ngSubmit)="onSubmited()" [formGroup]="superFormsdata">
+      <div class="d-flex justify-content-end cmll40">
+        <button class="clr" type="button" value="colourchange" mat-raised-button style="box-sizing: content-box;"
+          (click)="close()">Cancel</button>
+        <button class="ms-2" type="submit" mat-raised-button color="primary" style="box-sizing: content-box;">
+          Save
+        </button>
+      </div>
+
+
+
+      <!-- <div class="col-6">
+          <mat-form-field class="example-form-field" style="width: 100%;" appearance="outline">
+            <mat-label>Group Name</mat-label>
+            <input
+            type="number"
+              placeholder="group Name"
+              matInput
+              formControlName="groupId"
+            />
+          </mat-form-field>
+        </div> -->
+
+      <mat-form-field class="example-form-field" style="width: 25%;" appearance="outline">
+        <mat-label>Project Name</mat-label>
+        <input type="text" placeholder="Profit Center Name" matInput formControlName="name" />
+      </mat-form-field>
+
+
+
+      <!-- <mat-form-field class="example-form-field" style="width: 100%;" appearance="outline">
+            <mat-label>Country</mat-label>
+            <textarea style="height: 50px;"
+              matInput
+              placeholder="Country"
+              matInput
+              formControlName="countryId"
+            ></textarea>
+          </mat-form-field> -->
+
+      <mat-form-field appearance="outline" style="width: 30%;  padding-left: 50px;">
+
+        <mat-label>Select Profit Center</mat-label>
+        <input type="text"
+               placeholder="Select Profit Center"
+               aria-label="Number"
+               matInput
+               formControlName="profitcentreid"
+               [matAutocomplete]="auto1">
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let company of autoData1" [value]="company.name">
+            {{company.name}}
+          </mat-option>
+        </mat-autocomplete>
+
+        <!-- <mat-label>Select Profit Center</mat-label>
+        <mat-select formControlName="profitcentreid">
+          <mat-option value="">--Select Profit Center--</mat-option>
+          <mat-option *ngFor="let profit of profitcenterlist" [value]="profit.id">{{profit.name}}</mat-option>
+        </mat-select> -->
+      </mat-form-field><br>
+
+      <mat-form-field appearance="outline" style="width: 25%;  ">
+        <mat-label>Select Customer</mat-label>
+        <input type="text"
+               placeholder="Select Customer"
+               aria-label="Number"
+               matInput
+               formControlName="customerid"
+               [matAutocomplete]="auto2">
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let company of autoData2" [value]="company.name">
+            {{company.name}}
+          </mat-option>
+        </mat-autocomplete>
+
+        <!-- <mat-label>Select Customer</mat-label>
+        <mat-select formControlName="customerid">
+          <mat-option value="">--Select Customer--</mat-option>
+          <mat-option *ngFor="let customer of customerslist" [value]="customer.id">{{customer.name}}</mat-option>
+        </mat-select> -->
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 30%;  padding-left: 50px;">
+        <mat-label>Select Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="">--Select Type--</mat-option>
+          <mat-option *ngFor="let type of projectTypes | keyvalue:returnOrder " [value]="type.key"
+            (click)="disableElement(type.value)">{{type.value}}</mat-option>
+        </mat-select>
+      </mat-form-field><br>
+
+      <!-- <mat-form-field appearance="outline" style="width: 25%; ">
+            <mat-label>Select Resource</mat-label>
+            <mat-select formControlName="resources" multiple>
+              <mat-option *ngFor="let resource of ResourceList" [value]="resource.resourceId">{{resource.name}}</mat-option>
+          </mat-select> 
+          </mat-form-field>
+
+          <mat-form-field class="example-form-field" style="width: 30%; padding-left: 50px;" appearance="outline">
+
+            <mat-label>Sale Price</mat-label>
+           <input
+              type="number"
+              placeholder="Sale Price"
+             matInput
+              formControlName="salePrice"
+            />
+          </mat-form-field>       -->
+     
+      
+
+    </form>
+  </div>
+</div>

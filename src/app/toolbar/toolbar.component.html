@@ -1,0 +1,28 @@
+<mat-toolbar >
+  <div class="left-content">
+    <button mat-icon-button (click)="sidenavToggle()" class="sidenav-toggle-btn">
+      <mat-icon *ngIf="!showCloseNav">menu </mat-icon>
+      <mat-icon *ngIf="showCloseNav" class="close-sidenav-btn" style="line-height: 43px">keyboard_arrow_left</mat-icon>
+    </button>
+     <div>
+      <!-- <a [routerLink]="['/group']"><mat-icon class="material-icons-outlined homeicon">home</mat-icon></a> -->
+    </div>
+    <div class="breadcrumbs">
+      <lib-breadcrumbs></lib-breadcrumbs>
+    </div>
+  </div>
+
+  <span class="spacer"></span>
+  <div class="profile">
+    <button  mat-mini-fab class="mat-elevation-z" [matMenuTriggerFor]="menu"  color="primary">
+      <mat-icon style="height: 30px; font-size: 24px ;">account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+
+  </div>
+</mat-toolbar>

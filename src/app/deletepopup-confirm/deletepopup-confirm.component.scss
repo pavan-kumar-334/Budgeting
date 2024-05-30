@@ -1,0 +1,40 @@
+app-confirm-dialog {
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .mat-dialog-content {
+        margin: 0;
+        .dialog-icon{
+            img {
+                width: 50px;
+            }
+        }
+
+        .custom-dialog-icon {
+
+            img {
+                width: 176px;
+                margin-bottom: 24px;
+            }
+        }
+    }
+
+    .mat-dialog-actions {
+        justify-content: center;
+        margin-bottom: 0;
+        padding: 16px 24px 24px 24px;
+    }
+}
+
+
+// CDK dialog panel class
+.app-confirm-dialog-panel {
+    padding: 24px;
+    width: 100%;
+    max-width: 568px !important;
+    .mat-dialog-container {
+        height: auto;
+    }
+}

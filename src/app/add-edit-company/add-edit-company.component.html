@@ -1,0 +1,67 @@
+<div class="page-header-section">
+  <br>
+  <H1 class="header11">{{objId && objId != "" ? 'Edit' : 'Add'}} Company</H1>
+
+  <div class="p-5 cmll41" style="background-color:white;  padding: 1rem!important;">
+    <form (ngSubmit)="onSubmited()" [formGroup]="superForms">
+      <div class="d-flex justify-content-end cmll40">
+        <button class="clr" type="button" value="colourchange" mat-raised-button style="box-sizing: content-box;"
+          (click)="close()">Cancel</button>
+        <button class="ms-2" type="submit" mat-raised-button color="primary" style="box-sizing: content-box;">
+          Save
+        </button>
+      </div>
+
+
+
+
+      <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+        <div fxLayout="column" [ngClass.xs]="'w-100 py-2'" [ngClass.gt-xs]="'w-80 py-2'">
+          <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field [ngClass.xs]="'w-100 pb-8'" [ngClass.gt-xs]="'w-40 pr-8'" [appearance]="'outline'">
+              <mat-label>Company Name</mat-label>
+              <input type="text" placeholder="Company Name" matInput formControlName="name" />
+
+            </mat-form-field>
+
+            <mat-form-field [ngClass.xs]="'w-100 pb-8'" [ngClass.gt-xs]="'w-40 pr-8'" [appearance]="'outline'">
+              <mat-label>Select Group</mat-label>
+              <input type="text" placeholder="Select Group" aria-label="Number" matInput formControlName="groupId"
+                [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let company of autoData" [value]="company.name">
+                  {{company.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field [ngClass.xs]="'w-100 pb-8'" [ngClass.gt-xs]="'w-40 pr-8'" [appearance]="'outline'">
+              <mat-label>Select Country</mat-label>
+              <input (ngModelChange)="getCurrencyList($event)"  type="text" placeholder="Select Country" aria-label="Number1" matInput formControlName="countryId"
+                [matAutocomplete]="auto1">
+              <mat-autocomplete  #auto1="matAutocomplete">
+                <mat-option  *ngFor="let company1 of autoData1" [value]="company1.name">
+                  {{company1.name}}
+                </mat-option>
+              </mat-autocomplete>
+
+            </mat-form-field>
+
+            <mat-form-field [ngClass.xs]="'w-100 pb-8'" [ngClass.gt-xs]="'w-40 pr-8'" [appearance]="'outline'">
+              <mat-label>Currency Code</mat-label>
+              <input type="text" style="font-weight: bold;" placeholder="Select Group" aria-label="Number" matInput formControlName="currencyCode">
+
+
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </form>
+  </div>
+</div>

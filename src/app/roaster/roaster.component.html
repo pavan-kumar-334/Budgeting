@@ -1,0 +1,226 @@
+<div id="customer-container" class="page-wrapper">
+
+    <br>
+    <div class="page-title-wrapper M12" >
+      <span class="page-title" >Roster</span>
+      <!-- <button mat-raised-button color="primary" style=" float: right;" routerLink="/roster/book/add" class="submit-button ml500">
+      &nbsp;Book &nbsp;   
+      </button>  -->
+    </div>
+
+    <div class="page-header-section1 mt-15 mb-15" >
+      <form [formGroup] = "superForms">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" style="justify-content: flex-start !important; ">
+          <div fxFlex="20%">
+            <div  fxLayout="column" fxLayout.gt-xs="row">
+              
+              <mat-form-field appearance="outline" class=" w-100">
+                <mat-label>Select Resource</mat-label>
+                <input type="text"
+                       placeholder="Select Resource"
+                       aria-label="Number"
+                       matInput
+                       formControlName="resourcesIds"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let company of autoData" [value]="company.name">
+                    {{company.name}}
+                  </mat-option>
+                </mat-autocomplete>
+
+              
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="20%">
+            <div  fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class=" w-100">
+
+                <mat-label>Select Project</mat-label>
+                <input type="text"
+                       placeholder="Select Project"
+                       aria-label="Number"
+                       matInput
+                       formControlName="projectIds"
+                       [matAutocomplete]="auto1">
+                <mat-autocomplete #auto1="matAutocomplete">
+                  <mat-option *ngFor="let company of autoData2" [value]="company.name">
+                    {{company.name}}
+                  </mat-option>
+                </mat-autocomplete>
+
+               
+              </mat-form-field>
+              
+            </div>
+          </div>
+          <div fxFlex="20%">
+            <div fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="w-100">
+
+                <mat-label>Select Cost Center</mat-label>
+              <input type="text"
+                     placeholder="Select Cost Center"
+                     aria-label="Number"
+                     matInput
+                     formControlName="costCentreIds"
+                     [matAutocomplete]="autoo">
+              <mat-autocomplete #autoo="matAutocomplete">
+                <mat-option *ngFor="let company of autoData1" [value]="company.name">
+                  {{company.name}}
+                </mat-option>
+              </mat-autocomplete>
+
+              
+              </mat-form-field>
+              
+            </div> 
+          </div>
+          <div fxFlex="20%">
+            <!-- <div class="mb-8 date-picker" fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field  appearance="outline" class="pb-0 w-100">
+                <mat-label>Date</mat-label>
+                <input  matInput [matDatepicker]="picker2" formControlName="startDate">
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+              <mat-datepicker-toggle matIconSuffix [for]="picker2" class="dateIcon"></mat-datepicker-toggle>
+            </div> -->
+          </div>
+          <!-- <div fxFlex="20%">
+            <div class="mb-8 date-picker" fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class="pb-0 w-100">
+                <mat-label>End Date</mat-label>
+                <input  matInput [matDatepicker]="picker1">
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              <mat-datepicker-toggle matIconSuffix [for]="picker1" class="dateIcon"></mat-datepicker-toggle>
+            </div>
+          </div> -->
+          
+          <div fxFlex="20%">    
+            <div class="submit-button-section">      
+              <button mat-raised-button color="primary"(click)="filterSearchforRoaster()"  class="submit-button ml600">
+                 Search 
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+     
+    </div>
+<div class="page-content-section">    
+    <div  class="company-list mat-elevation-z2 table-container ">
+
+
+      <div class="clrr" *ngIf="numSelected > 0">
+        <form [formGroup] = "searchForm">
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="55px">
+          <div fxFlex="52%">
+            <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row" style="margin-top: 10px;margin-left:10px">
+              <h5>{{numSelected}} selected</h5>
+            </div>
+          </div>
+          <div fxFlex="15%" >
+            
+              <div style="height: 50px;" class="mb-8 date-picker" fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field  appearance="outline" class="pb-0 w-100">
+                <mat-label>Date</mat-label>
+                <input  matInput [matDatepicker]="picker2" formControlName="searchStartDate">
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+              <mat-datepicker-toggle matIconSuffix [for]="picker2" class="dateIcon"></mat-datepicker-toggle>
+            </div> 
+           
+          </div>
+          <div fxFlex="15%">
+            <div class="mb-8 date-picker" fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field  appearance="outline" class="pb-0 w-100">
+                <mat-label>Date</mat-label>
+                <input  matInput [matDatepicker]="picker1" formControlName="searchEndDate">
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              <mat-datepicker-toggle matIconSuffix [for]="picker1" class="dateIcon"></mat-datepicker-toggle>
+            </div> 
+          </div>
+
+          <div fxFlex="10%">
+            <div class="submit-button-section">
+              <button mat-raised-button color="primary"  (click)="bulkViewRoster()">
+                &nbsp; View &nbsp;
+              </button>
+            </div>
+          </div>
+        </div>
+        </form>
+
+      </div>
+
+
+    
+
+        <table mat-table   
+        matSort
+        #table 
+        (matSortChange)="sortData($event)"
+      matSortActive="auditSection.createdDate"
+      matSortDirection="desc"
+      matSortDisableClear
+        [dataSource]="Resourcelist"
+       class="app-table">
+    
+       
+       
+     
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+             <mat-checkbox  color='primary' (change)="$event ? masterToggle() : null"
+             [checked]="isAllSelected()"
+             [indeterminate]="selection.hasValue() && !isAllSelected()">
+             </mat-checkbox>
+           </th>
+           <td mat-cell *matCellDef="let row">
+             <mat-checkbox  color='primary' (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+               [checked]="selection.isSelected(row)">
+             </mat-checkbox>
+           </td>
+        </ng-container>
+      
+
+      <ng-container matColumnDef="resourcesIds">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef> Resource </th>
+        <td mat-cell  (click)="eyeEdit()" routerLink="/roster/edit/{{element.resourceId}}" style="cursor: pointer;" *matCellDef="let element"
+        (mouseenter)="onCellHover($event)" (mouseleave)="onCellLeave($event)"> {{element.name}} </td> 
+      </ng-container>
+  
+      <!-- <ng-container matColumnDef="Probability">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Probability </th>
+        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+      </ng-container> -->
+      
+      <ng-container matColumnDef="Project">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef>Project</th>
+        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+      </ng-container> 
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef style="text-align: left;"> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="d-flex">
+            <a mat-icon-button  (click)="eyeEdit()"  routerLink="/roster/edit/{{element.resourceId}}" class="table-action-btn"  color="primary" title="Edit Contact"><mat-icon>visibility</mat-icon></a>
+            <!-- <a mat-icon-button class="table-action-btn " (click)="deleteRoaster(element.id)" title="Delete Contact" color="error"><mat-icon>delete</mat-icon></a> -->
+          </div>
+        </td>
+      </ng-container>
+
+       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="position:20px;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       </table>
+</div>
+<!-- <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize"
+[length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator> -->
+
+</div>
+
+</div>
+

@@ -1,0 +1,96 @@
+<div id="customer-container" class="page-wrapper">
+    <br>
+    <div class="page-title-wrapper M12">
+      <span class="page-title">Contribution Report</span>     
+    </div>
+  
+  
+    <div class="page-header-section1 mt-15 mb-15">
+      <form [formGroup]="superForms">
+  
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="65px" style="justify-content: flex-start !important;" >
+  
+          <div fxFlex="25%">
+            <div  fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class=" w-100" >
+  
+                <mat-label>Select Profit Center</mat-label>
+                <input type="text"
+                       placeholder="Select Profit Center"
+                       aria-label="Number"
+                       matInput
+                       formControlName="profitCentre"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let company of autoData" [value]="company.name">
+                    {{company.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+  
+          
+          <div fxFlex="25%" style="margin-right: 32px !important;">
+            <div  fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class=" w-100" >
+                <mat-label>Start Date</mat-label>
+                <input matInput [matDatepicker]="startDate" (dateChange)="formatDate($event)"
+                    formControlName="startDate">
+                <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field>
+            <mat-datepicker-toggle matIconSuffix [for]="startDate" style=" margin-left: -40px; margin-top: 10px;">
+            </mat-datepicker-toggle>  
+            
+            </div>
+          </div>
+          <div fxFlex="25%" >
+            <div  fxLayout="column" fxLayout.gt-xs="row">
+              <mat-form-field appearance="outline" class=" w-100" >
+                <mat-label>End Date</mat-label>
+                <input matInput [matDatepicker]="endDate" (dateChange)="formatDate1($event)"
+                    formControlName="endDate">
+                <mat-datepicker #endDate></mat-datepicker>
+            </mat-form-field>
+            <mat-datepicker-toggle  matIconSuffix [for]="endDate" style=" margin-left: -40px; margin-top: 10px;" >
+            </mat-datepicker-toggle>
+          </div>
+        </div>
+ 
+          <div fxFlex="30%">
+            <div class="submit-button-section">
+              <button mat-raised-button color="primary" (click)="filterSearchforReports()" class="submit-button ml600 ">
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  
+  
+
+<div class="page-content-section mt-t25">
+  <div class="company-list mat-elevation-z2 table-container ">
+    <div *ngIf="reportData.length === 0" class="no-data-container">
+      No Data
+    </div>
+
+<table *ngIf="reportData.length > 0" mat-table [dataSource]="reportData" class="mat-elevation-z8"> 
+  <ng-container *ngFor="let columnName of columnNames" [matColumnDef]="columnName">
+    <th mat-header-cell *matHeaderCellDef>{{ capitalize(columnName) }}</th>
+    <td mat-cell *matCellDef="let row" >
+      <a *ngIf="row[columnName+'drilldownValue'] && row[columnName+'drilldownValue'].length > 0 && columnName !='sId' && columnName !='projectName'" 
+        [href]="row[columnName+'drilldownValue']" > {{ row[columnName] | number}}</a>
+      <span *ngIf="!row[columnName+'drilldownValue'] || row[columnName+'drilldownValue'].length === 0 ||  columnName ==='sId' || columnName ==='projectName'" > {{gettype(row[columnName]) != "number" ? row[columnName] : row[columnName] | number}} </span>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnNames" [ngClass]="row.className"></tr>
+</table>
+
+</div>
+</div>
+  
+  </div>

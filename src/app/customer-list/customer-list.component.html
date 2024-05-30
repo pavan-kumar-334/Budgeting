@@ -1,0 +1,162 @@
+<div id="customer-container" class="page-wrapper">
+
+  <br>
+  <div class="page-title-wrapper M12">
+    <span class="page-title">Customers</span>
+    &nbsp;<span class="list-count" *ngIf="customerdata">({{ customerdata}})</span>
+    <button mat-raised-button color="primary" style=" float: right;" routerLink="/customer/add"
+      class="submit-button ml500">
+      Add Customer
+    </button>
+  </div><br>
+
+  <div class="page-header-section1 mt-15 mb-15">
+    <form [formGroup]="superForms">
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="75px">
+
+
+        <div fxFlex="20%">
+          <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+              <mat-label>Customer Name</mat-label>
+              <input matInput placeholder="Text Here" formControlName="name">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="20%">
+          <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+            <mat-label>Select Country</mat-label>
+            <input type="text"
+                   placeholder="Select Country"
+                   aria-label="Number1"
+                   matInput
+                   formControlName="country"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let company1 of autoData1" [value]="company1.name">
+                {{company1.name}}
+              </mat-option>
+            </mat-autocomplete>
+
+<!--            
+              <mat-label>Select Country</mat-label>
+              <mat-select formControlName="country">
+                <mat-option value="">--Select Country--</mat-option>
+                <mat-option *ngFor="let country of countrieslist" [value]="country.id">{{country.name}}</mat-option>
+              </mat-select> -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="20%">
+          <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+
+              <mat-label>Company Name</mat-label>
+              <input type="text"
+                     placeholder="Company Name"
+                     aria-label="Number"
+                     matInput
+                     formControlName="company"
+                     [matAutocomplete]="auto1">
+              <mat-autocomplete #auto1="matAutocomplete">
+                <mat-option *ngFor="let company of autoData" [value]="company.name">
+                  {{company.name}}
+                </mat-option>
+              </mat-autocomplete>
+
+              <!-- <mat-label>Select Company</mat-label>
+              <mat-select formControlName="company">
+                <mat-option value="">--Select Company--</mat-option>
+                <mat-option *ngFor="let company of companylist" [value]="company.id">{{company.name}}</mat-option>
+              </mat-select> -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="40%">
+          <div class="submit-button-section">
+            <button mat-raised-button color="primary" (click)="filterSearchforcustomers()" class="submit-button ml600 searchmargin">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+  <div class="page-content-section">
+
+    <div class="company-list mat-elevation-z2 table-container ">
+      <table mat-table matSort #table (matSortChange)="sortData($event)"
+      matSortActive="auditSection.createdDate"
+      matSortDirection="desc"
+      matSortDisableClear [dataSource]="customerlist" class="app-table">
+
+
+
+        <ng-container matColumnDef="CId">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Customer Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Customer Name </th>
+          <td mat-cell routerLink="/customer/edit/{{element.id}}" style="cursor: pointer;" *matCellDef="let element" (mouseenter)="onCellHover($event)" (mouseleave)="onCellLeave($event)"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="country">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Country </th>
+          <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        </ng-container>
+        <ng-container matColumnDef="company">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Company </th>
+          <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="createdDate">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Created</th>
+          <td mat-cell *matCellDef="let element"> {{element.auditSection.createdDate | date:'dd / MM / yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastModifiedDate">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Modified</th>
+          <td mat-cell *matCellDef="let element"> {{element.auditSection.lastModifiedDate | date:'dd / MM / yyyy'}}
+          </td>
+        </ng-container>
+
+
+
+
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef style="text-align: left;"> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="d-flex">
+              <a mat-icon-button routerLink="/customer/edit/{{element.id}}" class="table-action-btn" color="primary"
+                title="Edit Contact">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a mat-icon-button class="table-action-btn " (click)="deleteCustomer(element.id)" title="Delete Contact"
+                color="error">
+                <mat-icon>delete</mat-icon>
+              </a>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="position:20px;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex" 
+      [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+
+  </div>
+
+</div>

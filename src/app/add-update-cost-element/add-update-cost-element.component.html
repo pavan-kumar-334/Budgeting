@@ -1,0 +1,62 @@
+<div class="page-header-section">
+    <br>
+    <H1 class="header11"> {{objId && objId != "" ? 'Edit' : 'Add'}} Cost Element</H1>
+  
+    <div class="p-5 cmll41" style="background-color:white;  padding: 1rem!important;">
+      <form (ngSubmit)="onSubmited()" [formGroup]="superFormsdata">
+        <div class="d-flex justify-content-end cmll40">
+          <button class="clr" type="button" value="colourchange" mat-raised-button style="box-sizing: content-box;"
+            (click)="close()">Cancel</button>
+          <button class="ms-2" type="submit" mat-raised-button color="primary" style="box-sizing: content-box;">
+            Save
+          </button>
+        </div>
+  
+        <div class="column" style="margin-top: 10px;">
+          <div class="col-6">
+            <mat-form-field class="example-form-field" style="width: 60%;" appearance="outline">
+              <mat-label>Cost Element Name</mat-label>
+              <input type="text" placeholder="Cost Element Name" matInput formControlName="name" />
+             </mat-form-field>
+          </div>
+
+          <div class="col-6">
+            <mat-form-field class="example-form-field" style="width: 60%;" appearance="outline">
+              <mat-label>Cost</mat-label>
+              <input type="text" placeholder="Cost" matInput formControlName="cost" />
+             </mat-form-field>
+          </div>
+
+          <div class="col-6 ">
+            
+            <div class="col-6">
+              <mat-form-field appearance="outline" style="width: 120%;">
+                <mat-label>Select Cost Group</mat-label>
+                <input type="text"
+                       placeholder="Select Cost Group"
+                       aria-label="Number1"
+                       matInput
+                       formControlName="costGroupId"
+                       [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let company1 of autoData1" [value]="company1.name">
+                    {{company1.name}}
+                  </mat-option>
+                </mat-autocomplete>
+
+
+                <!-- <mat-label>Select Cost Group</mat-label>
+                <mat-select formControlName="costGroupId">
+                  <mat-option value="">--Select Cost Group--</mat-option>
+                  <mat-option *ngFor="let costgroup of costGroupList" [value]="costgroup.id">{{costgroup.name}}</mat-option>
+                </mat-select> -->
+              </mat-form-field>
+              </div>
+              <div class="col-6">
+             
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

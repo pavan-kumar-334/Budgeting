@@ -1,0 +1,71 @@
+<div class="page-header-section">
+  <br>
+  <H1 class="header11">{{objId && objId != "" ? 'Edit' : 'Add'}} Customer</H1>
+
+  <div class="p-5 cmll41" style="background-color:white;  padding: 1rem!important;">
+    <form (ngSubmit)="onSubmited()" [formGroup]="superFormsdata">
+      <div class="d-flex justify-content-end cmll40">
+        <button class="clr" type="button" value="colourchange" mat-raised-button style="box-sizing: content-box;"
+          (click)="close()">Cancel</button>
+        <button class="ms-2" type="submit" mat-raised-button color="primary" style="box-sizing: content-box;">
+          Save
+        </button>
+      </div>
+
+      <div class="column" style="margin-top: 10px;">
+        <div class="col-6">
+          <mat-form-field class="example-form-field" style="width: 60%;" appearance="outline">
+            <mat-label>Customer Name</mat-label>
+            <input type="text" placeholder="Customer Name" matInput formControlName="name" />
+          </mat-form-field>
+        </div>
+        <div class="col-6 ">
+          <div class="col-6">
+            <mat-form-field appearance="outline" style="width: 120%;">
+
+              <mat-label>Company Name</mat-label>
+              <input type="text"
+                     placeholder="Company Name"
+                     aria-label="Number"
+                     matInput
+                     formControlName="company"
+                     [matAutocomplete]="auto1">
+              <mat-autocomplete #auto1="matAutocomplete">
+                <mat-option *ngFor="let company of autoData" [value]="company.name">
+                  {{company.name}}
+                </mat-option>
+              </mat-autocomplete>
+<!-- 
+              <mat-label>Select Company</mat-label>
+              <mat-select formControlName="company">
+                <mat-option *ngFor="let company of companylist" [value]="company.id">{{company.name}}</mat-option>
+              </mat-select> -->
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field appearance="outline" style="width: 120%;">
+
+              <mat-label>Select Country</mat-label>
+              <input type="text"
+                     placeholder="Select Country"
+                     aria-label="Number1"
+                     matInput
+                     formControlName="country"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let company1 of autoData1" [value]="company1.name">
+                  {{company1.name}}
+                </mat-option>
+              </mat-autocomplete>
+
+              <!-- <mat-label>Select Country</mat-label>
+              <mat-select formControlName="country">
+                <mat-option *ngFor="let country of countrieslist" [value]="country.id">{{country.name}}</mat-option>
+              </mat-select> -->
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

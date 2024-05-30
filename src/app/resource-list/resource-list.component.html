@@ -1,0 +1,211 @@
+<div id="customer-container" class="page-wrapper">
+
+  <br>
+  <div class="page-title-wrapper M12">
+    <span class="page-title">Resource</span>&nbsp;<span class="list-count" *ngIf="ResourceTotalCount">({{
+      ResourceTotalCount}})</span>
+    <button mat-raised-button color="primary" style=" float: right;" routerLink="/resource/add"
+      class="submit-button ml500">
+      Add Resource
+    </button>
+  </div>
+
+
+
+  <div class="page-header-section1 mt-15 mb-15">
+    <form [formGroup]="superForms">
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" >
+
+
+        <div fxFlex="15%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+              <mat-label>Resource Name</mat-label>
+              <input matInput placeholder="Text Here" formControlName="name">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="15%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+
+              <mat-label>Select Country</mat-label>
+              <input type="text"
+                     placeholder="Select Country"
+                     aria-label="Number1"
+                     matInput
+                     formControlName="countryId"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let company1 of autoData1" [value]="company1.name">
+                  {{company1.name}}
+                </mat-option>
+              </mat-autocomplete>
+
+
+
+              <!-- <mat-label>Select Country</mat-label>
+              <mat-select formControlName="countryId">
+                <mat-option value="">--Select Country--</mat-option>
+                <mat-option *ngFor="let country of countrieslist" [value]="country.id">{{country.name}}</mat-option>
+              </mat-select> -->
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="15%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+
+
+              <mat-label>Select CostCenter</mat-label>
+              <input type="text"
+                     placeholder="Select CostCenter"
+                     aria-label="Number"
+                     matInput
+                     formControlName="costCentreId"
+                     [matAutocomplete]="auto1">
+              <mat-autocomplete #auto1="matAutocomplete">
+                <mat-option *ngFor="let company1 of autoData" [value]="company1.name">
+                  {{company1.name}}
+                </mat-option>
+              </mat-autocomplete>
+
+              <!-- <mat-label>Select CostCenter</mat-label>
+              <mat-select formControlName="costCentreId">
+                <mat-option value="">--Select Cost Center--</mat-option>
+                <mat-option *ngFor="let costCentre of costCenterlist" [value]="costCentre.id">{{costCentre.name}}
+                </mat-option>
+              </mat-select> -->
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="15%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+              <mat-label>Role</mat-label>
+              <input matInput placeholder="Text Here" formControlName="role">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex="15%">
+          <div  fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-100">
+              <mat-label>Region</mat-label>
+              <input matInput placeholder="Text Here" formControlName="region">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxFlex="15%">
+          <div class="submit-button-section">
+            <button mat-raised-button color="primary" (click)="filterSearchforResource()" class="submit-button ml600">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="page-content-section" >
+    <div class="company-list mat-elevation-z2 table-container ">
+      <table mat-table matSort #table (matSortChange)="sortData($event)"
+      matSortActive="auditSection.createdDate"
+      matSortDirection="desc"
+      matSortDisableClear [dataSource]="Resourcelist" class="app-table">
+        <ng-container matColumnDef="ResourceId">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Resource Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.resourceId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Resource Name </th>
+          <td mat-cell routerLink="/resource/edit/{{element.resourceId}}" style="cursor: pointer;" *matCellDef="let element" (mouseenter)="onCellHover($event)" (mouseleave)="onCellLeave($event)"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Role </th>
+          <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+        </ng-container>
+        <ng-container matColumnDef="employee" > 
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Employee </th>
+          <td class="test555" mat-cell *matCellDef="let element" >
+            <span    *ngIf="element.employee"><mat-icon style="color: rgb(8, 206, 8);">done_outline</mat-icon> </span>
+              <span *ngIf="!element.employee">&#10060; </span> 
+         </td> 
+        </ng-container>
+
+        <ng-container matColumnDef="active">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Active </th>
+          <td class="text-left" mat-cell  *matCellDef="let element">
+
+            <span  style="width: 200;"  *ngIf="element.active"><mat-icon style="color: rgb(8, 206, 8); ">done_outline</mat-icon></span>
+
+          <span *ngIf="!element.active">&#10060; </span> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="roaster">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Roster</th>
+          <td class="test555" mat-cell *matCellDef="let element">
+
+            <span  style="width: 200;"  *ngIf="element.roaster"><mat-icon style="color: rgb(8, 206, 8);">done_outline</mat-icon></span>
+  
+            <span *ngIf="!element.roaster">&#10060; </span> </td>
+        </ng-container>
+        <ng-container matColumnDef="countryId">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Country </th>
+          <td mat-cell *matCellDef="let element"> {{element.countryName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="region">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef> Region </th>
+          <td mat-cell *matCellDef="let element"> {{element.region}} </td>
+        </ng-container>
+        <ng-container matColumnDef="costCentreId">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Cost Center </th>
+          <td mat-cell *matCellDef="let element"> {{element.costCentreName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Salery">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Salary </th>
+          <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="StartDate">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Salary Start Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        </ng-container>
+        <ng-container matColumnDef="EndDate">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Salary End Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef style="text-align: left;"> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="d-flex">
+              <a mat-icon-button routerLink="/resource/edit/{{element.resourceId}}" class="table-action-btn"
+                color="primary" title="Edit Contact">
+                <mat-icon>edit</mat-icon>
+              </a>
+              <a mat-icon-button class="table-action-btn " (click)="deleteResourceById(element.resourceId)"
+                title="Delete Contact" color="error">
+                <mat-icon>delete</mat-icon>
+              </a>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="position:20px;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <mat-paginator class="app-table-paginator" [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" [pageIndex]="pageIndex"
+      [length]="totalResult" (page)="onPaginateChange($event)" showFirstLastButtons></mat-paginator>
+
+  </div>
+
+</div>

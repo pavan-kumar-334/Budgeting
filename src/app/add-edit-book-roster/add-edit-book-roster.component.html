@@ -1,0 +1,126 @@
+<div id="customer-container">
+  <div class="page-header-section">
+    <br/>
+    <h1 class="header11" > 
+      {{objId && objId != "" ? 'Edit' : 'Book'}} Roster</h1>
+  </div>
+  <div class="page-content-section">
+
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmited()">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" fxLayoutAlign="center">
+        <div fxFlex="100%"> 
+             
+          <div class="submit-button-section">  
+            <div *ngIf="displayBasedOnId">
+              <button class="ml-2" type="button" value="colourchange" mat-raised-button (click)="deleteRoaster()">Delete</button>    
+            </div>
+           <button class="clr mx-3" type="button" value="colourchange" mat-raised-button style="box-sizing: content-box;"  (click)="redirectToBook()">Cancel</button>    
+            <button mat-raised-button color="primary"  class="submit-button ml600 px-4" >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" fxLayoutAlign="center">
+        <div fxFlex="100%">
+          <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-50">
+              <mat-label>Select Resource</mat-label>
+              <mat-select formControlName="resourceId" (ngModelChange)="getProjectList($event)">
+                <mat-option *ngFor="let resource of resourceList" [value]="resource.resourceId">{{resource.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" fxLayoutAlign="center">
+        <div fxFlex="100%">
+          <div class="mb-8" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-50">
+              <mat-label>Project</mat-label>
+              <mat-select formControlName="projectId" >
+                <!-- <mat-option>test </mat-option> -->
+                <mat-option value="">--Select Project--</mat-option>
+                <mat-option *ngFor="let project of projectlist" [value]="project.id">{{project.name}}</mat-option>
+              </mat-select> 
+              <mat-error *ngIf="bookForm.get('projectId')?.hasError('required')">
+                Project is required
+              </mat-error>
+            </mat-form-field>
+            
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" fxLayoutAlign="center">
+        <div fxFlex="100%">
+          <div class="mb-8 date-picker" fxLayout="column" fxLayout.gt-xs="row" >
+            <mat-form-field appearance="outline" class="pb-0 w-50">
+              <mat-label>Start Date</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="startDate"  >
+              <mat-datepicker #picker2 ></mat-datepicker>
+            </mat-form-field>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2" class="dateIcon"></mat-datepicker-toggle>
+          </div>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" fxLayoutAlign="center">
+        <div fxFlex="100%">
+          <div class="mb-8 date-picker" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-50">
+              <mat-label>End Date</mat-label>
+              <!-- <input matInput [matDatepicker]="picker1" formControlName="endDate" [disabled]="currentId && currentId != '' "> -->
+              <input matInput [matDatepicker]="picker1" formControlName="endDate">
+              <mat-datepicker #picker1 ></mat-datepicker>
+            </mat-form-field>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1" class="dateIcon"></mat-datepicker-toggle>
+          </div>
+        </div>
+      </div>  
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" fxLayoutAlign="center">
+        <div fxFlex="100%">
+          <div>
+            <mat-checkbox formControlName="sunday"  (change)='onChangeDay($event)' color='primary' value="Sun" [checked]="curDay && curDay == 'Sun'" > Sun</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox formControlName="monday" (change)='onChangeDay($event)' color='primary' value="Mon" [checked]="curDay && curDay == 'Mon'"> Mon</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox formControlName="tuesday" (change)='onChangeDay($event)' color='primary' value="Tue" [checked]="curDay && curDay == 'Tue'" > Tue</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox formControlName="wednesday" (change)='onChangeDay($event)' color='primary' value="Wed" [checked]="curDay && curDay == 'Wed'" > Wed</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox formControlName="thursday" (change)='onChangeDay($event)' color='primary' value="Thu" [checked]="curDay && curDay == 'Thu'" > Thu</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox formControlName="friday" (change)='onChangeDay($event)' color='primary' value="Fri" [checked]="curDay && curDay == 'Fri'" > Fri</mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox formControlName="saturday" (change)='onChangeDay($event)' color='primary' value="Sat" [checked]="curDay && curDay == 'Sat'" > Sat</mat-checkbox>
+          </div>
+          
+        </div>
+      </div>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="25px" fxLayoutAlign="center">
+        <div fxFlex="100%">
+          <div class="mt-15" fxLayout="column" fxLayout.gt-xs="row">
+            <mat-form-field appearance="outline" class="pb-0 w-50">
+              <mat-label>Probability</mat-label>
+              <mat-select  formControlName="probability">
+                <!-- <mat-option>test </mat-option> -->
+                <!-- <mat-option *ngFor="let project of projectlist" [value]="project.id">{{project.name}}</mat-option> -->
+                <mat-option value="high">100%</mat-option>
+                <mat-option value="medium">50%</mat-option>
+                <!-- <mat-option value="low">25%</mat-option>                 -->
+              </mat-select> 
+            </mat-form-field>
+            
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+    </form>
+  </div>
+</div>

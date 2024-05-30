@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="221.284" height="47" viewBox="0 0 221.284 47">
+  <g id="Group_282" data-name="Group 282" transform="translate(1.5 9.245)">
+    <text id="Concord" transform="translate(128.784 25.755)" fill="#fff" font-size="34" font-family="CocoGothic-Heavy, Coco Gothic" font-weight="800"><tspan x="-90.491" y="0">CONCORD</tspan></text>
+    <g id="shopping-bag" transform="translate(0 0.684)">
+      <path id="Path_15" data-name="Path 15" d="M7.317,2,3,7.762V27.927a2.879,2.879,0,0,0,2.878,2.881H26.022A2.879,2.879,0,0,0,28.9,27.927V7.762L24.583,2Z" transform="translate(-3 -2)" fill="none" stroke="#fe9f43" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <line id="Line_21" data-name="Line 21" x2="25.618" transform="translate(0.282 5.727)" fill="none" stroke="#fe9f43" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+      <path id="Path_16" data-name="Path 16" d="M19.511,10A5.755,5.755,0,1,1,8,10" transform="translate(-0.806 1.523)" fill="none" stroke="#fe9f43" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    </g>
+  </g>
+</svg>
