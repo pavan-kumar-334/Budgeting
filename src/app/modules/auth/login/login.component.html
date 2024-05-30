@@ -5,7 +5,7 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>UserName</mat-label>
-                <input matInput formControlName="username" >
+                <input matInput style="padding: 8px; width: 90%; border: 2px solid #2f4d83; border-radius: 5px;" formControlName="username" >
                 <mat-icon matSuffix class="secondary-text">mail</mat-icon>
                 <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
                     UserName is required
@@ -19,7 +19,7 @@
         
             <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput type="password" formControlName="password">
+                <input matInput style="padding: 8px; width: 90%; border: 2px solid #2f4d83; border-radius: 5px;" type="password" formControlName="password">
                 <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
                 <mat-error>
                     Password is required
